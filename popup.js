@@ -66,7 +66,7 @@ function displaySummary(totalCost) {
 function getHourlyRate() {
     salary = parseFloat(salary)
     hoursPerDay = parseFloat(hoursPerDay)
-    return (salary / 52) / (hoursPerDay * 7)
+    return (salary / 52) / (hoursPerDay * daysPerWeek)
 }
 
 function getDailyRate() {
