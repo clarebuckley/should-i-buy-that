@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <h1>Should you buy it?</h1>
+    <div id="noOptions" class="hidden">
+        <p>Please go to:</p>
+        <p class="focusedText">Extensions > Manage Extensions > Should you buy it? > Details > Expansions</p>
+        <p>to set up this extension</p>
+    </div>
+    <div id="main">
+        <p id="greeting"></p>
+        <div id="costSummary">
+            <p>The cost for what you're about to buy is: <span class="focusedText" id="totalCost">--</span> </p>
+            <p>Based on your annual salary, that means you'd have to work for:</p>
+            <ul>
+                <li><span class="focusedText" id="costInHours">--</span> hours</li>
+                <li><span class="focusedText" id="costInDays">--</span> days</li>
+                <li><span class="focusedText" id="costInWeeks">--</span> weeks</li>
+            </ul>
+            <p>to pay for that!</p>
+        </div>
+        <div id="costUnavailable" class="hidden">
+            <p>I don't know if you should buy it 😢</p>
+            <p>Either your basket isn't visible on this page, or the service isn't available for this online shop yet - sorry!</p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

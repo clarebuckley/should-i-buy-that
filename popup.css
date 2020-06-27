@@ -1,0 +1,30 @@
+body {
+    width: 300px;
+    max-height: 400px;
+    margin: 0
+}
+
+#main, #noOptions {
+    background-color: white;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+h1 {
+    background-color: #00aa93;
+    color: white;
+    height: 40px;
+    font-size: 23px;
+    padding: 10px;
+}
+
+.focusedText {
+    color: #00aa93;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}

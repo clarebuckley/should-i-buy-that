@@ -1,0 +1,27 @@
+{
+    "name": "Should you buy it?",
+    "version": "1.0",
+    "description": "Break your shopping basket down to see if you should really be spending that money",
+    "options_page": "options.html",
+    "permissions": [ "activeTab", "declarativeContent", "storage" ],
+    "background": {
+        "scripts": [ "background.js" ],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/icon16.png",
+            "32": "images/icon32.png",
+            "48": "images/icon48.png",
+            "128": "images/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "images/icon16.png",
+        "32": "images/icon32.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "manifest_version": 2
+}
