@@ -41,7 +41,6 @@ async function renderPopup() {
                     if (matchesArray.length > 0) {
                         totalPrice = matchesArray[0].innerText;
                     } 
-                    console.log(Array.from(matches)[0].innerText)
                     return {
                       //  matches: document.querySelectorAll(".order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price")
                         // matches: document.querySelectorAll(".order-summary__value--total").textContent
@@ -50,7 +49,6 @@ async function renderPopup() {
                 } + ')()'
             },
             function (data) {
-                console.log(data)
                 if (data[0] === null) {
                     costIsNotAvailable();
                 } else {

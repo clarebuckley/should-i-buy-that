@@ -1,7 +1,7 @@
 {
-    "name": "Should you buy it?",
+    "name": "Should I buy it?",
     "version": "1.0",
-    "description": "Break your shopping basket down to see if you should really be spending that money",
+    "description": "Break your shopping basket down in to how long you'd have to work to afford it - should you really buy it?",
     "options_page": "options.html",
     "permissions": [ "activeTab", "declarativeContent", "storage" ],
     "background": {
