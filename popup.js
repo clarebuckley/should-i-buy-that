@@ -36,7 +36,7 @@ async function renderPopup() {
             {
                 code: '(' + function () {
                     let totalPrice;
-                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price, .total-row > span > span > span, .summary-item > tbody > tr:last-child > .amount > span > span, .bag-total-price--subtotal")
+                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price, .total-row > span > span > span, .summary-item > tbody > tr:last-child > .amount > span > span, .bag-total-price--subtotal, .cart-payment-section > table > tbody:last-child > tr:last-child > td > h1 > .money > .currency-value")
                     matchesArray = Array.from(matches);
                     //this is bad, so far only ebay uses length ==2
                     if (matchesArray.length == 1) {
@@ -69,7 +69,8 @@ function displaySummary(totalCost) {
     let costInDaysElem = document.getElementById('costInDays');
     let costInWeeksElem = document.getElementById('costInWeeks');
 
-    totalCost = totalCost.substring(1)
+    totalCost = totalCost.replace(/\u00A3/g,"")
+
     totalCostElem.innerHTML = totalCost;
     costInHoursElem.innerHTML = (totalCost / getHourlyRate()).toFixed(2)
     costInDaysElem.innerHTML = (totalCost / getDailyRate()).toFixed(2)
