@@ -2,29 +2,37 @@
 <html>
 <head>
     <script src="options.js"></script>
+    <link rel="stylesheet" href="options.css">
 </head>
 <body>
-
+    <h1>Set up your details</h1>
     <div class="container">
-        <h1>Set up your details</h1>
-        <p>This will be used to calculate help information, these details won't be used anywhere else.</p>
-        <p>(this page needs improvement)</p>
 
-        <hr>
-        <label for="name"><b>Name:</b></label>
-        <input type="text" placeholder="Enter Name" name="name" id="name">
+        <p>This will be used to calculate cost summaries, these details won't be used anywhere else.</p><br/>
 
-        <label for="salary"><b>Annual salary</b></label>
-        <input type="text" placeholder="Annual salary" name="salary" id="salary">
+        <div class="inputBox">
+            <label for="name"><b>Name:</b></label>
+            <input type="text" placeholder="Enter Name" name="name" id="name">
+        </div>
 
-        <label for="hoursPerDay"><b>Hours worked in a day:</b></label>
-        <input type="text" placeholder="Hours per day" name="hoursPerDay" id="hoursPerDay">
+        <div class="inputBox">
+            <label for="salary"><b>Annual salary</b></label>
+            <input type="text" placeholder="Annual salary" name="salary" id="salary">
+        </div>
 
-        <label for="daysPerWeek"><b>Days worked in a week:</b></label>
-        <input type="text" placeholder="Days per week" name="daysPerWeek" id="daysPerWeek">
-        <hr>
+        <div class="inputBox">
+            <label for="hoursPerDay"><b>Hours worked in a day:</b></label>
+            <input type="text" placeholder="Hours per day" name="hoursPerDay" id="hoursPerDay">
+        </div>
 
+        <div class="inputBox">
+            <label for="daysPerWeek"><b>Days worked in a week:</b></label>
+            <input type="text" placeholder="Days per week" name="daysPerWeek" id="daysPerWeek">
+        </div>
+        
         <button type="submit" id="saveBtn" class="savebtn">Save</button>
+
+        <div id="success" class="success hidden"><span>Saved successfully!</span><span id="close">X</span></div>
     </div>
 
 </body>

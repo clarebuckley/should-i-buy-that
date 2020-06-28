@@ -1,0 +1,44 @@
+
+.success {
+    background-color: #48b256;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#close {
+    padding: 10px;
+    background-color: #399740;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+body{
+    width: 80%;
+}
+
+.container {
+    padding: 10px;
+}
+
+.inputBox {
+    padding-bottom: 20px;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    background-color: #00aa93;
+    color: white;
+    height: 40px;
+    font-size: 23px;
+    padding: 10px;
+}

@@ -15,16 +15,12 @@ function setInitialDisplay() {
         } else {
             document.getElementById("noOptions").classList.add("hidden");
             document.getElementById("main").classList.remove("hidden");
-
-            console.log(data.userInput)
             salary = data.userInput.salary;
             hoursPerDay = data.userInput.hoursPerDay;
             daysPerWeek = data.userInput.daysPerWeek;
-
         }
     })
 }
-
 
 function displayGreeting() {
     let greeting = document.getElementById('greeting');
@@ -37,13 +33,29 @@ async function renderPopup() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.executeScript(
             tabs[0].id,
-            { code: 'document.querySelector(".order-summary__value--total").textContent' },
-            function (matches) {
-                if (matches[0] == null) {
+            {
+                code: '(' + function () {
+                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price")
+                    matchesArray = Array.from(matches);
+                    
+                    if (matchesArray.length > 0) {
+                        totalPrice = matchesArray[0].innerText;
+                    } 
+                    console.log(Array.from(matches)[0].innerText)
+                    return {
+                      //  matches: document.querySelectorAll(".order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price")
+                        // matches: document.querySelectorAll(".order-summary__value--total").textContent
+                        totalPrice: totalPrice
+                    };
+                } + ')()'
+            },
+            function (data) {
+                console.log(data)
+                if (data[0] === null) {
                     costIsNotAvailable();
                 } else {
                     costIsAvailable();
-                    displaySummary(matches[0]);
+                    displaySummary(data[0].totalPrice);
                 }
             }
         );
@@ -64,6 +76,7 @@ function displaySummary(totalCost) {
 }
 
 function getHourlyRate() {
+    salary = salary.toString().replace(",", "")
     salary = parseFloat(salary)
     hoursPerDay = parseFloat(hoursPerDay)
     return (salary / 52) / (hoursPerDay * daysPerWeek)
@@ -78,8 +91,6 @@ function getWeeklyRate() {
     daysPerWeek = parseFloat(daysPerWeek)
     return getDailyRate() * daysPerWeek
 }
-
-
 
 function costIsAvailable() {
     document.getElementById("costSummary").classList.remove("hidden");
