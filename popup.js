@@ -35,21 +35,24 @@ async function renderPopup() {
             tabs[0].id,
             {
                 code: '(' + function () {
-                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price")
+                    let totalPrice;
+                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price, .total-row > span > span > span, .summary-item > tbody > tr:last-child > .amount > span > span")
                     matchesArray = Array.from(matches);
-                    
-                    if (matchesArray.length > 0) {
+                    //this is bad, so far only ebay uses length ==2
+                    if (matchesArray.length == 1) {
                         totalPrice = matchesArray[0].innerText;
+                    }
+                    else if (matchesArray.length == 2) {
+                        totalPrice = matchesArray[1].innerText;
                     } 
+                    
                     return {
-                      //  matches: document.querySelectorAll(".order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price")
-                        // matches: document.querySelectorAll(".order-summary__value--total").textContent
                         totalPrice: totalPrice
                     };
                 } + ')()'
             },
             function (data) {
-                if (data[0] === null) {
+                if (Object.keys(data[0]).length === 0) {
                     costIsNotAvailable();
                 } else {
                     costIsAvailable();
