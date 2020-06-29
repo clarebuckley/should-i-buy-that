@@ -79,9 +79,9 @@ function displaySummary(totalCost) {
     totalCost = totalCost.replace(/\u00A3/g,"")
 
     totalCostElem.innerHTML = totalCost;
-    costInHoursElem.innerHTML = (totalCost / getHourlyRate()).toFixed(2)
-    costInDaysElem.innerHTML = (totalCost / getDailyRate()).toFixed(2)
-    costInWeeksElem.innerHTML = (totalCost / getWeeklyRate()).toFixed(2)
+    costInHoursElem.innerHTML = getCostInHours(totalCost);
+    costInDaysElem.innerHTML = getCostInDays(totalCost);
+    costInWeeksElem.innerHTML = getCostInWeeks(totalCost);
 }
 
 
@@ -104,7 +104,17 @@ function getWeeklyRate() {
 }
 
 //------------------------------------Get cost of total items based on rates------------------------------------
+function getCostInHours(totalCost) {
+    return (totalCost / getHourlyRate()).toFixed(2)
+}
 
+function getCostInDays(totalCost) {
+    return (totalCost / getDailyRate()).toFixed(2)
+}
+
+function getCostInWeeks(totalCost) {
+    return (totalCost / getWeeklyRate()).toFixed(2)
+}
 
 
 //------------------------------------Decide which view to display------------------------------------

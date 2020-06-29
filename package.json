@@ -1,0 +1,23 @@
+{
+  "name": "should-i-buy-that",
+  "version": "1.2.0",
+  "description": "breaks down your online shopping checkout total into how many hours/days/weeks you'd have to work to afford it to help you decide whether it's really worth it",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^26.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clarebuckley/should-i-buy-that.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clarebuckley/should-i-buy-that/issues"
+  },
+  "homepage": "https://github.com/clarebuckley/should-i-buy-that#readme"
+}

@@ -2,14 +2,14 @@
     "name": "Should I buy it?",
     "version": "1.2",
     "description": "Break your shopping basket down in to how long you'd have to work to afford it - should you really buy it?",
-    "options_page": "options.html",
+    "options_page": "html/options.html",
     "permissions": [ "activeTab", "declarativeContent", "storage" ],
     "background": {
-        "scripts": [ "background.js" ],
+        "scripts": [ "js/background.js" ],
         "persistent": false
     },
     "page_action": {
-        "default_popup": "popup.html",
+        "default_popup": "html/popup.html",
         "default_icon": {
             "16": "images/icon16.png",
             "32": "images/icon32.png",
