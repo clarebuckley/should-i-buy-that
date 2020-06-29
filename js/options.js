@@ -17,15 +17,16 @@ function saveHandler() {
     if (name === '' || salary === '' || hoursPerDay === '' || daysPerWeek === '') {
         alert("The extension won't work properly if any of these values aren't entered!")
         document.getElementById("fail").classList.remove("hidden");
-
     } else {
+        salary = salary.replace(",", "");
+
         chrome.storage.sync.set(
             {
                 userInput: {
-                    name: document.getElementById("name").value,
-                    salary: document.getElementById("salary").value,
-                    hoursPerDay: document.getElementById("hoursPerDay").value,
-                    daysPerWeek: document.getElementById("daysPerWeek").value
+                    name: name,
+                    salary: salary,
+                    hoursPerDay: hoursPerDay,
+                    daysPerWeek: daysPerWeek
                 }
             }, function () {
                 document.getElementById("success").classList.remove("hidden");
