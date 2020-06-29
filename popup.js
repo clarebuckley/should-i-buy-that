@@ -1,15 +1,20 @@
 let salary, hoursPerDay, daysPerWeek;
 
 window.onload = function () {
+    document.getElementById("setUpOptions").addEventListener('click', setUpOptions);
     setInitialDisplay();
     displayGreeting();
     renderPopup()
 }
 
+function setUpOptions() {
+    chrome.tabs.create({ url: "options.html" });
+}
+
 //Check that the user has added their details - if not, display instructions to set these
 function setInitialDisplay() {
     chrome.storage.sync.get('userInput', function (data) {
-        if (typeof data.userInput === 'undefined') {
+        if (typeof data.userInput === 'undefined' || data.userInput.salary == "" || data.userInput.hoursPerDay == "" || data.userInput.daysPerWeek == "") {
             document.getElementById("noOptions").classList.remove("hidden");
             document.getElementById("main").classList.add("hidden");
         } else {
@@ -29,6 +34,7 @@ function displayGreeting() {
     });
 }
 
+//Get contents to display on popup
 async function renderPopup() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.executeScript(
@@ -36,7 +42,7 @@ async function renderPopup() {
             {
                 code: '(' + function () {
                     let totalPrice;
-                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, .sc-price, .hlb-price, .total-row > span > span > span, .summary-item > tbody > tr:last-child > .amount > span > span, .bag-total-price--subtotal, .cart-payment-section > table > tbody:last-child > tr:last-child > td > h1 > .money > .currency-value")
+                    matches = document.querySelectorAll("span.order-summary__value--total, .order__summary-total-price--inc-delivery, .grand-total-price, #sc-subtotal-amount-buybox > .sc-price, .hlb-price, .total-row > span > span > span, .summary-item > tbody > tr:last-child > .amount > span > span, .bag-total-price--subtotal, .cart-payment-section > table > tbody:last-child > tr:last-child > td > h1 > .money > .currency-value")
                     matchesArray = Array.from(matches);
                     //this is bad, so far only ebay uses length ==2
                     if (matchesArray.length == 1) {
@@ -63,6 +69,7 @@ async function renderPopup() {
     });
 }
 
+//Get the summary information to be displayed
 function displaySummary(totalCost) {
     let totalCostElem = document.getElementById('totalCost');
     let costInHoursElem = document.getElementById('costInHours');
@@ -77,6 +84,8 @@ function displaySummary(totalCost) {
     costInWeeksElem.innerHTML = (totalCost / getWeeklyRate()).toFixed(2)
 }
 
+
+//------------------------------------Get rates based on salary------------------------------------
 function getHourlyRate() {
     salary = salary.toString().replace(",", "")
     salary = parseFloat(salary)
@@ -94,6 +103,11 @@ function getWeeklyRate() {
     return getDailyRate() * daysPerWeek
 }
 
+//------------------------------------Get cost of total items based on rates------------------------------------
+
+
+
+//------------------------------------Decide which view to display------------------------------------
 function costIsAvailable() {
     document.getElementById("costSummary").classList.remove("hidden");
     document.getElementById("costUnavailable").classList.add("hidden");

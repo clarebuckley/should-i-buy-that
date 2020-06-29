@@ -28,3 +28,12 @@ h1 {
 .hidden {
     display: none;
 }
+
+.popupButton {
+    background-color: #00aa93;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}

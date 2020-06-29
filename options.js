@@ -1,7 +1,8 @@
 window.onload = function () {
     setPreviousSave()
     document.getElementById("saveBtn").addEventListener('click', saveHandler);
-    document.getElementById("close").addEventListener('click', closeHandler);
+    document.getElementById("closeSuccess").addEventListener('click', closeHandler);
+    document.getElementById("closeFail").addEventListener('click', closeHandler);
 }
 
 function saveHandler() {
@@ -10,8 +11,13 @@ function saveHandler() {
         hoursPerDay = document.getElementById("hoursPerDay").value,
         daysPerWeek = document.getElementById("daysPerWeek").value;
 
+    document.getElementById("success").classList.add("hidden");
+    document.getElementById("fail").classList.add("hidden");
+
     if (name === '' || salary === '' || hoursPerDay === '' || daysPerWeek === '') {
         alert("The extension won't work properly if any of these values aren't entered!")
+        document.getElementById("fail").classList.remove("hidden");
+
     } else {
         chrome.storage.sync.set(
             {
@@ -30,6 +36,7 @@ function saveHandler() {
 
 function closeHandler() {
     document.getElementById("success").classList.add("hidden");
+    document.getElementById("fail").classList.add("hidden");
 }
 
 function setPreviousSave() {

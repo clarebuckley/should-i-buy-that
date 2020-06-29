@@ -9,9 +9,26 @@
     justify-content: space-between;
 }
 
-#close {
+.fail {
+    background-color: #c86f30;
+    color: white;
+    font-size: 15px;
+    padding: 5px;
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#closeSuccess {
     padding: 10px;
     background-color: #399740;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#closeFail {
+    padding: 10px;
+    background-color: #b15a1d;
     font-weight: bold;
     cursor: pointer;
 }
