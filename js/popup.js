@@ -1,6 +1,7 @@
 
 window.onload = function () {
     document.getElementById("setUpOptions").addEventListener('click', setUpOptions);
+    document.getElementById("changeSettings").addEventListener('click', setUpOptions);
     renderPopup();
 }
 

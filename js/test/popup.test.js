@@ -6,7 +6,7 @@ test("Calculating rates", () => {
 })
 
 test("Calculating costs", () => {
-    expect(popupFunctions.getCostInHours(41.95, "27,000", 7.5, 5)).toBe("0.49")
+    expect(popupFunctions.getCostInHours(41.95, 27500, 7.5, 5)).toBe("2.97")
     expect(popupFunctions.getCostInDays(5,20000,7.5,5)).toBe("0.06")
     expect(popupFunctions.getCostInWeeks(5,20000,7.5,5)).toBe("0.01")
 })

@@ -18,6 +18,14 @@ h1 {
     height: 40px;
     font-size: 23px;
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+img{
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
 }
 
 .focusedText {
