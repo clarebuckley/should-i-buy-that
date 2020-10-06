@@ -1,43 +1,45 @@
 window.onload = function () {
-    setPreviousSave()
+    setPreviousSave();
     document.getElementById("saveBtn").addEventListener('click', saveHandler);
     document.getElementById("closeSuccess").addEventListener('click', closeHandler);
     document.getElementById("closeFail").addEventListener('click', closeHandler);
+    document.getElementById("typeOfPaySelection").addEventListener('change', changeTypeOfPayHandler);
 }
 
 function saveHandler() {
     let name = document.getElementById("name").value,
         salary = document.getElementById("salary").value,
         hoursPerDay = document.getElementById("hoursPerDay").value,
-        daysPerWeek = document.getElementById("daysPerWeek").value;
-
-    document.getElementById("success").classList.add("hidden");
-    document.getElementById("fail").classList.add("hidden");
+        daysPerWeek = document.getElementById("daysPerWeek").value,
+        paySelection = document.getElementById("typeOfPaySelection").value;
+    
+    hide("success");
+    hide("fail");
 
     if (name === '' || salary === '' || hoursPerDay === '' || daysPerWeek === '') {
         alert("The extension won't work properly if any of these values aren't entered!")
-        document.getElementById("fail").classList.remove("hidden");
+        show("fail");
     } else {
         salary = salary.replace(",", "");
-
         chrome.storage.sync.set(
             {
                 userInput: {
                     name: name,
                     salary: salary,
                     hoursPerDay: hoursPerDay,
-                    daysPerWeek: daysPerWeek
+                    daysPerWeek: daysPerWeek,
+                    paySelection: paySelection
                 }
             }, function () {
-                document.getElementById("success").classList.remove("hidden");
+                show("success");
             }
         )
     }
 }
 
 function closeHandler() {
-    document.getElementById("success").classList.add("hidden");
-    document.getElementById("fail").classList.add("hidden");
+    hide("success");
+    hide("fail");
 }
 
 function setPreviousSave() {
@@ -47,10 +49,49 @@ function setPreviousSave() {
             document.getElementById("salary").value = data.userInput.salary
             document.getElementById("hoursPerDay").value = data.userInput.hoursPerDay
             document.getElementById("daysPerWeek").value = data.userInput.daysPerWeek
+            document.getElementById("typeOfPaySelection").value = data.userInput.paySelection
         }
     });
-
 }
 
+function changeTypeOfPayHandler() {
+    var value = document.getElementById("typeOfPaySelection").value;
+    switch (value) {
+        case "Yearly":
+            show("annualPayLabel");
+            hide("monthlyPayLabel");
+            hide("weeklyPayLabel");
+            hide("dailyPayLabel");
+            break;
+        case "Monthly":
+            hide("annualPayLabel");
+            show("monthlyPayLabel");
+            hide("weeklyPayLabel");
+            hide("dailyPayLabel");
+            break;
+        case "Weekly":
+            hide("annualPayLabel");
+            hide("monthlyPayLabel");
+            show("weeklyPayLabel");
+            hide("dailyPayLabel");
+            break;
+        case "Daily":
+            hide("annualPayLabel");
+            hide("monthlyPayLabel");
+            hide("weeklyPayLabel");
+            show("dailyPayLabel");
+            break;
+        default:
+            console.error("Invalid selection");
+    }
+}
 
+function hide(elementId) {
+    document.getElementById(elementId).classList.add("hidden");
+}
+
+function show(elementId) {
+    console.log(elementId)
+    document.getElementById(elementId).classList.remove("hidden");
+}
 

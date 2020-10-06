@@ -1,4 +1,6 @@
-
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 .success {
     background-color: #48b256;
     color: white;
@@ -34,7 +36,7 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 body{
@@ -42,7 +44,7 @@ body{
 }
 
 .container {
-    padding: 10px;
+    margin: 10px;
     font-size: 14px;
 }
 
@@ -66,4 +68,10 @@ h1 {
 
 h2 {
     background-color: rgba(0, 170, 147, 0.6)
+}
+
+.selectionBar {
+    padding: 5px;
+    background-color: rgba(0, 170, 147, 0.2);
+    margin-bottom: 20px;
 }
