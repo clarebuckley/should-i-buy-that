@@ -22,9 +22,23 @@
             <input type="text" placeholder="Enter Name" name="name" id="name">
         </div>
 
-        <div class="inputBox">
-            <label for="salary"><b>Annual salary</b></label>
-            <input type="text" placeholder="Annual salary" name="salary" id="salary">
+        <div class="selectionBar">
+            I want to calculate by my
+            <select name="typeOfPay" id="typeOfPaySelection">
+                <option>Yearly</option>
+                <option>Monthly</option>
+                <option>Weekly</option>
+                <option>Daily</option>
+            </select>
+            rate
+        </div>
+        
+        <div class="inputBox" id="paySelection">
+            <label for="salary" id="annualPayLabel"><b>Annual salary</b></label>
+            <label for="salary" id="monthlyPayLabel" class="hidden"><b>Monthly salary</b></label>
+            <label for="salary" id="weeklyPayLabel" class="hidden"><b>Weekly salary</b></label>
+            <label for="salary" id="dailyPayLabel" class="hidden"><b>Daily salary</b></label>
+            <input type="text" placeholder="Your salary" name="salary" id="salary">
         </div>
 
         <div class="inputBox">
