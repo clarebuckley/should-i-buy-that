@@ -1,3 +1,4 @@
+var userInput;
 
 window.onload = function () {
     document.getElementById("setUpOptions").addEventListener('click', setUpOptions);
@@ -11,14 +12,13 @@ function setUpOptions() {
 
 function renderPopup() {
     chrome.storage.sync.get('userInput', function (data) {
-        let userInput = data.userInput;
-
+        userInput = data.userInput;
         setInitialDisplay(userInput);
         displayGreeting(userInput.name);
         getTotalPriceFromDOM().then((totalPrice) => {
             if (totalPrice != -1) {
                 showCostSummary();
-                displaySummary(totalPrice, userInput);
+                displaySummary(totalPrice);
             } else {
                 hideCostSummary();
             }
@@ -43,7 +43,7 @@ function displayGreeting(name) {
 }
 
 async function getTotalPriceFromDOM() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             chrome.tabs.executeScript(
                 tabs[0].id,
@@ -77,48 +77,63 @@ async function getTotalPriceFromDOM() {
 }
 
 //Get the summary information to be displayed
-function displaySummary(totalCost, userInput) {
+function displaySummary(totalCost) {
     let totalCostElem = document.getElementById('totalCost');
+    let paySelectionElem = document.getElementById('paySelection');
     let costInHoursElem = document.getElementById('costInHours');
     let costInDaysElem = document.getElementById('costInDays');
     let costInWeeksElem = document.getElementById('costInWeeks');
-
     totalCostElem.innerHTML = totalCost;
-    console.log(totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek)
-    costInHoursElem.innerHTML = getCostInHours(totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
-    costInDaysElem.innerHTML = getCostInDays(totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
-    costInWeeksElem.innerHTML = getCostInWeeks(totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
+    paySelectionElem.innerHTML = userInput.paySelection.toLowerCase();
+    displayCosts(userInput.paySelection, totalCost, costInHoursElem, costInDaysElem, costInWeeksElem);
+}
+
+function displayCosts(paySelection, totalCost, costInHoursElem, costInDaysElem, costInWeeksElem) {
+    costInHoursElem.innerHTML = getCostInHours(paySelection, totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
+    costInDaysElem.innerHTML = getCostInDays(paySelection, totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
+    costInWeeksElem.innerHTML = getCostInWeeks(paySelection, totalCost, userInput.salary, userInput.hoursPerDay, userInput.daysPerWeek);
 }
 
 
 //------------------------------------Get rates based on salary------------------------------------
-function getHourlyRate(salary, hoursPerDay, daysPerWeek) {
+function getHourlyRate(paySelection, salary, hoursPerDay, daysPerWeek) {
     salary = parseFloat(salary)
     hoursPerDay = parseFloat(hoursPerDay)
-    return (salary / 52) / (hoursPerDay * daysPerWeek)
+    switch (paySelection) {
+        case "Yearly":
+            return (salary / 52) / (hoursPerDay * daysPerWeek);
+        case "Monthly":
+            return ((salary / 4) / daysPerWeek) / daysPerweek;
+        case "Weekly":
+            return (salary / daysPerWeek) / hoursPerDay;
+        case "Daily":
+            return (salary / hoursPerDay);
+        default:
+            console.error("Invalid selection");
+    }
 }
 
-function getDailyRate(salary, hoursPerDay, daysPerWeek) {
+function getDailyRate(paySelection, salary, hoursPerDay, daysPerWeek) {
     hoursPerDay = parseFloat(hoursPerDay)
-    return getHourlyRate(salary, hoursPerDay, daysPerWeek) * hoursPerDay
+    return getHourlyRate(paySelection, salary, hoursPerDay, daysPerWeek) * hoursPerDay
 }
 
-function getWeeklyRate(salary, hoursPerDay, daysPerWeek) {
+function getWeeklyRate(paySelection, salary, hoursPerDay, daysPerWeek) {
     daysPerWeek = parseFloat(daysPerWeek)
-    return getDailyRate(salary, hoursPerDay, daysPerWeek) * daysPerWeek
+    return getDailyRate(paySelection, salary, hoursPerDay, daysPerWeek) * daysPerWeek
 }
 
 //------------------------------------Get cost of total items based on rates------------------------------------
-function getCostInHours(totalCost, salary, hoursPerDay, daysPerWeek) {
-    return (totalCost / getHourlyRate(salary, hoursPerDay, daysPerWeek)).toFixed(2)
+function getCostInHours(paySelection, totalCost, salary, hoursPerDay, daysPerWeek) {
+    return (totalCost / getHourlyRate(paySelection, salary, hoursPerDay, daysPerWeek)).toFixed(2)
 }
 
-function getCostInDays(totalCost, salary, hoursPerDay, daysPerWeek) {
-    return (totalCost / getDailyRate(salary, hoursPerDay, daysPerWeek)).toFixed(2)
+function getCostInDays(paySelection, totalCost, salary, hoursPerDay, daysPerWeek) {
+    return (totalCost / getDailyRate(paySelection, salary, hoursPerDay, daysPerWeek)).toFixed(2)
 }
 
-function getCostInWeeks(totalCost, salary, hoursPerDay, daysPerWeek) {
-    return (totalCost / getWeeklyRate(salary, hoursPerDay, daysPerWeek)).toFixed(2)
+function getCostInWeeks(paySelection, totalCost, salary, hoursPerDay, daysPerWeek) {
+    return (totalCost / getWeeklyRate(paySelection, salary, hoursPerDay, daysPerWeek)).toFixed(2)
 }
 
 
